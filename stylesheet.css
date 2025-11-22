@@ -1,0 +1,17 @@
+#primary-navbar ul {
+    background-color: #292929;
+    width: 100%;
+    overflow: hidden;
+}
+
+#primary-navbar ul li {
+    list-style-type: none;
+    text-decoration: none;
+    color: white;
+    margin: 1rem;
+    float: left;
+}
+
+#primary-navbar li:hover {
+    color: #da4545;
+}
