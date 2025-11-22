@@ -57,3 +57,7 @@ body.dark-mode .btn {
     background-color: #da4545;
     color: white;
 }
+
+#theme-toggle {
+    float: left;
+}
