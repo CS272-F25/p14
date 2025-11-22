@@ -18,5 +18,4 @@ https://cs272-f25.github.io/p14/
 - [x] Bootstrap implementation
 - [x] Use of CSS
 - [ ] Use of Javascript
-
-- [x] Accessability
+- [x] Accessibility
