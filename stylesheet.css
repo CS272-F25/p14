@@ -39,3 +39,21 @@
     text-align: center;
     margin-block: 2rem;
 }
+
+/* Light mode*/
+body {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+/* Dark mode */
+body.dark-mode {
+    background-color: #121212;
+    color: #f0f0f0;
+}
+
+/* Optional: style buttons in dark mode */
+body.dark-mode .btn {
+    background-color: #da4545;
+    color: white;
+}
