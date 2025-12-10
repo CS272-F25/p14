@@ -1,9 +1,8 @@
 //
-//   YOUR DARK MODE TOGGLE
-// 
+//   LIGHT MODE TOGGLE
+//
 document.addEventListener("DOMContentLoaded", () => {
     const toggleButton = document.getElementById("theme-toggle");
-
     if (toggleButton) {
         toggleButton.addEventListener("click", () => {
             document.body.classList.toggle("dark-mode");
@@ -11,128 +10,228 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
-// 
-//   BOUNCE DODGE GAME CODE
-// 
+//
+//   SPACE DODGE GAME
+//
+
+// Images
+const bgImage = new Image();
+bgImage.src = "images/Space.jpg";
+
+const enemyImage = new Image();
+enemyImage.src = "images/enemyShip.png";
+
+const playerImg = new Image();
+playerImg.src = "images/playerShip.png";
+
+
+const bgMusic = new Audio("sounds/space.mp3");
+bgMusic.loop = true;  // so it keeps playing
+bgMusic.volume = 0.3;  // adjust volume if too loud
+
+
 window.onload = () => {
     const canvas = document.getElementById("gameCanvas");
-    if (!canvas) return; // Do nothing if not on game page
-
+    if (!canvas) return;
     const ctx = canvas.getContext("2d");
 
-    // Create Try Again button (hidden by default)
-    const retryBtn = document.createElement("button");
-    retryBtn.innerText = "Try Again";
-    retryBtn.style.position = "absolute";
-    retryBtn.style.top = "50%";
-    retryBtn.style.left = "50%";
-    retryBtn.style.transform = "translate(-50%, -50%)";
-    retryBtn.style.padding = "15px 30px";
-    retryBtn.style.fontSize = "1.5rem";
-    retryBtn.style.display = "none";
-    retryBtn.style.zIndex = "10";
-    retryBtn.classList.add("btn", "btn-danger");  
-    document.body.appendChild(retryBtn);
+    let running = false;
+    let balls = [];
+    let startTime = 0;
+    const scoreDisplay = document.getElementById("score");
 
-    retryBtn.addEventListener("click", () => {
-        location.reload(); // resets game cleanly
-    });
+    // Countdown element
+    const countdownEl = document.getElementById("countdown");
+    countdownEl.style.position = "absolute";
+    countdownEl.style.zIndex = "20";
+    countdownEl.style.fontSize = "4rem";
+    countdownEl.style.fontWeight = "bold";
+    countdownEl.style.fontFamily = "'Audiowide', cursive";
+    countdownEl.style.color = "white";
+    countdownEl.style.textAlign = "center";
+    countdownEl.style.textShadow = "0 0 10px white, 0 0 20px #8e44ad, 0 0 30px #8e44ad";
+    countdownEl.style.display = "none";
 
     // Player
     const player = {
         x: canvas.width / 2,
         y: canvas.height / 2,
-        r: 12,
-        speed: 4
+        r: 15,
+        speed: 4,
+        angle: 0
     };
 
-    // Key Input
+    // Key input to prevent accidental scrolling
     const keys = {};
-    document.addEventListener("keydown", (e) => keys[e.key] = true);
+    document.addEventListener("keydown", (e) => {
+        if (["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(e.key)) e.preventDefault();
+        keys[e.key] = true;
+    });
     document.addEventListener("keyup", (e) => keys[e.key] = false);
 
-    // Red Balls (enemies)
-    let balls = [];
-    for (let i = 0; i < 6; i++) {
-        balls.push({
-            x: Math.random() * canvas.width,
-            y: Math.random() * canvas.height,
-            r: 15,
-            dx: (Math.random() < 0.5 ? -1 : 1) * (2 + Math.random() * 2),
-            dy: (Math.random() < 0.5 ? -1 : 1) * (2 + Math.random() * 2)
-        });
+    // START GAME BUTTON
+    const startBtn = document.createElement("button");
+    startBtn.innerText = "Start Game";
+    Object.assign(startBtn.style, {
+        position: "absolute",
+        top: canvas.offsetTop + canvas.height / 2 + "px",
+        left: canvas.offsetLeft + canvas.width / 2 + "px",
+        transform: "translate(-50%, -50%)",
+        padding: "15px 30px",
+        fontSize: "1.5rem",
+        zIndex: "10",
+        backgroundColor: "#8e44ad",
+        color: "white",
+        border: "none",
+        outline: "none",
+        cursor: "pointer",
+        boxShadow: "0 0 15px rgba(142, 68, 173, 0.7)",
+        transition: "0.3s",
+        fontFamily: "'Audiowide', cursive"
+    });
+    document.body.appendChild(startBtn);
+
+    startBtn.addEventListener("mouseover", () => startBtn.style.boxShadow = "0 0 25px rgba(142, 68, 173, 1)");
+    startBtn.addEventListener("mouseout", () => startBtn.style.boxShadow = "0 0 15px rgba(142, 68, 173, 0.7)");
+
+    // RETRY BUTTON
+    const retryBtn = document.createElement("button");
+    retryBtn.innerText = "Try Again";
+    Object.assign(retryBtn.style, {
+        position: "absolute",
+        top: canvas.offsetTop + canvas.height / 2 + "px",
+        left: canvas.offsetLeft + canvas.width / 2 + "px",
+        transform: "translate(-50%, -50%)",
+        padding: "15px 30px",
+        fontSize: "1.5rem",
+        zIndex: "10",
+        backgroundColor: "#e74c3c",
+        color: "white",
+        border: "none",
+        outline: "none",
+        cursor: "pointer",
+        boxShadow: "0 0 15px rgb(255, 0, 0)",
+        transition: "0.3s",
+        display: "none",
+        fontFamily: "'Audiowide', cursive"
+    });
+    document.body.appendChild(retryBtn);
+
+    retryBtn.addEventListener("mouseover", () => retryBtn.style.boxShadow = "0 0 25px rgb(255, 0, 0)");
+    retryBtn.addEventListener("mouseout", () => retryBtn.style.boxShadow = "0 0 15px rgb(255, 0, 0)");
+    retryBtn.addEventListener("click", () => location.reload());
+
+    // Create enemies
+    function createBalls() {
+        balls = [];
+        for (let i = 0; i < 6; i++) {
+            const dx = (Math.random() < 0.5 ? -1 : 1) * (2 + Math.random() * 2);
+            const dy = (Math.random() < 0.5 ? -1 : 1) * (2 + Math.random() * 2);
+            balls.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                r: 15,
+                dx: dx,
+                dy: dy,
+                angle: dx > 0 ? Math.PI/2 : -Math.PI/2 // initial facing right/left
+            });
+        }
     }
 
-    // Score
-    let startTime = Date.now();
-    const scoreDisplay = document.getElementById("score");
+    // Countdown function
+    function countdown(callback) {
+        let counter = 3;
+        countdownEl.style.display = "block"; 
+        countdownEl.style.top = canvas.offsetTop + canvas.height / 2 + "px";
+        countdownEl.style.left = canvas.offsetLeft + canvas.width / 2 + "px";
 
-    let running = true;
+        const interval = setInterval(() => {
+            countdownEl.textContent = counter > 0 ? counter : "Go!";
+            counter--;
+            if (counter < -1) {
+                clearInterval(interval);
+                countdownEl.style.display = "none";
+                callback();
+            }
+        }, 667);
+    }
 
-    // UPDATE FUNCTION
+    // Start Game
+    startBtn.addEventListener("click", () => {
+        startBtn.style.display = "none";
+        createBalls();
+        countdown(() => {
+            startTime = Date.now();
+            running = true;
+            bgMusic.play();  // start background music
+        });
+    });
+
+    // Update game
     function update() {
         if (!running) return;
 
-        // Player Movement
-        if (keys["ArrowUp"]) player.y -= player.speed;
-        if (keys["ArrowDown"]) player.y += player.speed;
-        if (keys["ArrowLeft"]) player.x -= player.speed;
-        if (keys["ArrowRight"]) player.x += player.speed;
+        // Player movement & rotation
+        if (keys["ArrowUp"]) player.y -= player.speed, player.angle = 0;
+        if (keys["ArrowDown"]) player.y += player.speed, player.angle = Math.PI;
+        if (keys["ArrowLeft"]) player.x -= player.speed, player.angle = -Math.PI / 2;
+        if (keys["ArrowRight"]) player.x += player.speed, player.angle = Math.PI / 2;
 
-        // Keep player inside bounds
+        // Boundaries
         player.x = Math.max(player.r, Math.min(canvas.width - player.r, player.x));
         player.y = Math.max(player.r, Math.min(canvas.height - player.r, player.y));
 
-        // Move balls
+        // Move enemies & flip on wall
         balls.forEach(b => {
             b.x += b.dx;
             b.y += b.dy;
 
-            // Bounce off walls
-            if (b.x - b.r < 0 || b.x + b.r > canvas.width) b.dx *= -1;
-            if (b.y - b.r < 0 || b.y + b.r > canvas.height) b.dy *= -1;
+            // Wall collision and flip image
+            if (b.x - b.r < 0) { b.dx *= -1; b.angle = Math.PI/2; }
+            if (b.x + b.r > canvas.width) { b.dx *= -1; b.angle = -Math.PI/2; }
+            if (b.y - b.r < 0) { b.dy *= -1; b.angle = 0; }
+            if (b.y + b.r > canvas.height) { b.dy *= -1; b.angle = Math.PI; }
 
-            // Collision check
+            // Collision with player
             const dist = Math.hypot(player.x - b.x, player.y - b.y);
-            if (dist < player.r + b.r) {
-                gameOver();
-            }
+            if (dist < player.r + b.r) gameOver();
         });
 
-        // Update score
-        const survivalTime = ((Date.now() - startTime) / 1000).toFixed(1);
-        if (scoreDisplay) scoreDisplay.textContent = `Score: ${survivalTime}`;
+        // Score update
+        const survival = ((Date.now() - startTime) / 1000).toFixed(1);
+        scoreDisplay.textContent = `Score: ${survival} seconds`;
     }
 
-    // DRAW FUNCTION
+    // Draw everything
     function draw() {
-        if (!running) return;
+        ctx.drawImage(bgImage, 0, 0, canvas.width, canvas.height);
 
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        // Player
+        ctx.save();
+        ctx.translate(player.x, player.y);
+        ctx.rotate(player.angle);
+        ctx.drawImage(playerImg, -player.r * 1.5, -player.r * 1.5, player.r * 3, player.r * 3);
+        ctx.restore();
 
-        // Draw player
-        ctx.beginPath();
-        ctx.arc(player.x, player.y, player.r, 0, Math.PI * 2);
-        ctx.fillStyle = "blue";
-        ctx.fill();
-
-        // Draw balls
+        // Enemies
         balls.forEach(b => {
-            ctx.beginPath();
-            ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
-            ctx.fillStyle = "red";
-            ctx.fill();
+            ctx.save();
+            ctx.translate(b.x, b.y);
+            ctx.rotate(b.angle);
+            ctx.drawImage(enemyImage, -b.r * 1.5, -b.r * 1.5, b.r * 3, b.r * 3);
+            ctx.restore();
         });
     }
 
-    // GAME OVER
+    // Game over
     function gameOver() {
         running = false;
-
         retryBtn.style.display = "block";
+        bgMusic.pause();
+        bgMusic.currentTime = 0;
     }
 
-    // GAME LOOP
+    // Game loop
     function loop() {
         update();
         draw();
