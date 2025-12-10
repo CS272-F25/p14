@@ -43,14 +43,14 @@
 
 /* Light mode*/
 body {
-    background-color: #ffffff;
-    color: #000000;
+  background-color: #03111e;
+    color: #ffffff;
 }
 
 /* Dark mode */
 body.dark-mode {
-    background-color: #121212;
-    color: #f0f0f0;
+    background-color: #ffffff;
+    color: #000000;
 }
 
 /* Optional: style buttons in dark mode */
@@ -59,10 +59,47 @@ body.dark-mode .btn {
     color: white;
 }
 
-
 #gameCanvas {
-    border: 4px solid black; /* thick black outline */
-    background-color: white;  
     display: block;
     margin: 0 auto;
+    box-shadow: 0 0 40px rgba(255, 0, 238, 0.5); /* soft white glow */
+    border-radius: 10px; /* optional for rounded edges */
+}
+
+
+/* Only for Game 1 page */
+body.game1-page {
+    background: linear-gradient(135deg, #2c003e, #000a3d);
+    min-height: 100vh;
+    margin: 0;
+}
+
+/* Game title */
+body.game1-page .hero h1 {
+    font-family: 'Audiowide', cursive;
+}
+
+/* Score text */
+body.game1-page #score {
+    font-family: 'Audiowide', cursive;
+}
+
+/* Button text */
+body.game1-page button {
+    font-family: 'Audiowide', cursive;
+}
+
+#countdown {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 4rem;
+    font-weight: bold;
+    color: white;
+    font-family: 'Audiowide', cursive;
+    text-align: center;
+    text-shadow: 0 0 10px white, 0 0 20px #8e44ad, 0 0 30px #8e44ad;
+    z-index: 20; 
+    display: none; 
 }
