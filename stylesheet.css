@@ -266,7 +266,6 @@ body.leaderboard-page {
     box-shadow: 0 0 35px rgba(255, 0, 0, 0.5);
 }
 
-
 .leaderboard-card .card-body {
     display: flex;
     flex-direction: column;
