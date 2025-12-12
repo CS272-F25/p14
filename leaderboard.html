@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leaderboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=BBH+Bogle&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="stylesheet.css" rel="stylesheet">
+</head>
+<body class="leaderboard-page">
+
+    <header>
+        <nav id="primary-navbar">
+            <ul>
+                <li><a href="index.html"><img src="images/badger.png" alt="Badger icon" height="30"></a></li>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="#">Games</a></li>
+                <li><a href="leaderboard.html">Leaderboard</a></li>
+                <li><a href="#">How to Play</a></li>
+                <li><a href="#">About Us</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container my-4">
+        <!-- Header + Clear Button -->
+        <div class="content-header">
+            <h1>Leaderboard</h1>
+            <button id="clear-scores-btn">Clear Scores</button>
+        </div>
+
+        <div class="row">
+            <!-- Top Scores -->
+            <div class="col-md-6 mb-4">
+                <div class="card leaderboard-card">
+                    <h2 class="text-center mb-3">Top Scores</h2>
+                    <ul id="top-scores" class="list-group list-group-flush"></ul>
+                </div>
+            </div>
+
+            <!-- Recent Scores -->
+            <div class="col-md-6 mb-4">
+                <div class="card leaderboard-card">
+                    <h2 class="text-center mb-3">Recent Scores</h2>
+                    <ul id="recent-scores" class="list-group list-group-flush"></ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center mt-4">
+            <a href="index.html" class="btn btn-danger">← Back to Home</a>
+        </div>
+    </div>
+
+    <script src="leaderboard.js"></script>
+</body>
+</html>
