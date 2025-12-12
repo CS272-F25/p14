@@ -1,89 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
 
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BadgersPlay</title>
-    <link rel="icon" type="image/x-icon" href="images/badger.png">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <link href="stylesheet.css" rel="stylesheet" />
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>BadgersPlay</title>
+   <link rel="icon" type="image/x-icon" href="images/badger.png">
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+   <link href="https://fonts.googleapis.com/css2?family=BBH+Bogle&display=swap" rel="stylesheet">
+   <link href="stylesheet.css" rel="stylesheet">
 </head>
 
-<body>
-    <header>
-        <nav id="primary-navbar">
-            <ul>
-                <li>
-                    <a href="index.html">
-                        <img src="images/badger.png" alt="Badger icon" height="30rem">
-                    </a>
-                </li>
-                <li>
-                    <a class="nav-link" href="index.html">Home</a>
-                </li>
-                <li>
-                    <a class="nav-link" href="">Games</a>
-                </li>
-                <li>
-                    <a class="nav-link" href="">Leaderboard</a>
-                </li>
-                <li>
-                    <a class="nav-link" href="">How to play</a>
-                </li>
-                <li>
-                    <a class="nav-link" href="">About Us</a>
-                </li>
-            </ul>
-        </nav>
-    </header>
-    <div class="content">
-        <button id="theme-toggle" class="btn btn-secondary mb-3 position-fixed top-0 end-0 m-3">Toggle Light
-            Mode</button>
 
-        <div class="hero">
-            <h1>Welcome to BadgersPlay!</h1>
-            <img src="images/badger.png" alt="Badger icon">
-        </div>
-        <div class="container" id="game-display">
-            <h2>Our Most Popular Games</h2>
-            <div class="row gx-4">
-                <a href="game1.html" class="col-xl-4 col-xs-12" style="text-decoration:none">
-                    <div class="card">
-                        <h3>Space Dodge</h3>
-                        <p>Space Dodge is a fast-paced survival game where you must dodge enemy 
-                           spaceships that move unpredictably around the screen. The longer you stay alive, 
-                           the higher your score climbs. React quickly, avoid the incoming obstacles, 
-                           and challenge yourself to beat your best time!</p>
-                        <img src="images/SpaceDodge.png" alt="Image depicting spaceship trying to avoid enemy spaceships">
-                    </div>
-                </a>
-                <a href="game2.html" class="col-xl-4 col-xs-12" style="text-decoration:none">
-                    <div class="card">
-                        <h3>Game 2 Title</h3>
-                        <p>Game 2 Description</p>
-                        <img src="images/placeholder.png" alt="Placeholder texture">
-                    </div>
-                </a>
-                <a href="game3.html" class="col-xl-4 col-xs-12" style="text-decoration:none">
-                    <div class="card">
-                        <h3>Game 3 Title</h3>
-                        <p>Game 3 Description</p>
-                        <img src="images/placeholder.png" alt="Placeholder texture">
-                    </div>
-                </a>
-            </div>
-            <a href="">Check out our leaderboards!</a>
-        </div>
-    </div>
-    <footer>
-        <a href="https://www.flaticon.com/free-icons/badger" title="badger icons">Badger icons created by Freepik -
-            Flaticon</a>
-    </footer>
+<body class="homepage">
 
-    <script src="script.js"></script>
 
+  
+   <header>
+       <nav id="primary-navbar">
+           <ul>
+               <li>
+                   <a href="index.html">
+                       <img src="images/badger.png" height="30" alt="">
+                   </a>
+               </li>
+               <li><a href="index.html">Home</a></li>
+               <li><a href="#">Games</a></li>
+               <li><a href="#">Leaderboard</a></li>
+               <li><a href="#">How to Play</a></li>
+               <li><a href="#">About Us</a></li>
+           </ul>
+       </nav>
+   </header>
+
+
+   <div class="hero">
+       <h1>BadgersPlay</h1>
+   </div>
+
+
+   <div class="container" id="game-display">
+       <h2>Our Most Popular Games</h2>
+       <div class="row gx-4">
+
+
+           <a href="game1.html" class="col-xl-4 col-xs-12" style="text-decoration:none">
+               <div class="card">
+                   <h3>Space Dodge</h3>
+                   <p>Survive as long as you can while dodging unpredictable enemy ships</p>
+                   <img src="images/SpaceDodge.png" alt="">
+               </div>
+           </a>
+
+
+           <a href="game2.html" class="col-xl-4 col-xs-12" style="text-decoration:none">
+               <div class="card">
+                   <h3>Game 2 Title</h3>
+                   <p>Description coming soon.</p>
+                   <img src="images/placeholder.png" alt="">
+               </div>
+           </a>
+
+
+           <a href="game3.html" class="col-xl-4 col-xs-12" style="text-decoration:none">
+               <div class="card">
+                   <h3>Game 3 Title</h3>
+                   <p>Description coming soon.</p>
+                   <img src="images/placeholder.png" alt="">
+               </div>
+           </a>
+
+
+       </div>
+   </div>
+
+
+  
+   <footer>
+       <a href="https://www.flaticon.com/free-icons/badger">Badger icons created by Freepik - Flaticon</a>
+   </footer>
+
+   <script src="script.js"></script>
 </body>
 
+
 </html>
+
+
+
