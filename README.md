@@ -6,8 +6,8 @@ https://cs272-f25.github.io/p14/
 ### Pages
 - [x] Homepage
 - [x] Game 1
-- [] Game 2
-- [] Game 3
+- [ ] Game 2
+- [ ] Game 3
 - [x] How to play page
 - [x] Leaderboard
 - [x] About Us
@@ -20,3 +20,4 @@ https://cs272-f25.github.io/p14/
 - [x] Use of Javascript
 
 - [x] Accessibility
+
