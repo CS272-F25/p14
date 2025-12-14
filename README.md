@@ -6,11 +6,11 @@ https://cs272-f25.github.io/p14/
 ### Pages
 - [x] Homepage
 - [x] Game 1
-- [x] Game 2
-- [x] Game 3
-- [ ] How to play page
-- [ ] Leaderboard
-- [ ] About Us
+- [ ] Game 2
+- [ ] Game 3
+- [x] How to play page
+- [x] Leaderboard
+- [x] About Us
 
 ### Draft requirements
 - [x] Global Stylesheet
@@ -18,4 +18,6 @@ https://cs272-f25.github.io/p14/
 - [x] Bootstrap implementation
 - [x] Use of CSS
 - [x] Use of Javascript
+
 - [x] Accessibility
+

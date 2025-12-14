@@ -1,16 +1,4 @@
 //
-//   LIGHT MODE TOGGLE
-//
-document.addEventListener("DOMContentLoaded", () => {
-    const toggleButton = document.getElementById("theme-toggle");
-    if (toggleButton) {
-        toggleButton.addEventListener("click", () => {
-            document.body.classList.toggle("dark-mode");
-        });
-    }
-});
-
-//
 //   SPACE DODGE GAME
 //
 
@@ -24,11 +12,10 @@ enemyImage.src = "images/enemyShip.png";
 const playerImg = new Image();
 playerImg.src = "images/playerShip.png";
 
-
+// Music
 const bgMusic = new Audio("sounds/space.mp3");
-bgMusic.loop = true;  // so it keeps playing
-bgMusic.volume = 0.3;  // adjust volume if too loud
-
+bgMusic.loop = true;
+bgMusic.volume = 0.2;
 
 window.onload = () => {
     const canvas = document.getElementById("gameCanvas");
@@ -61,13 +48,13 @@ window.onload = () => {
         angle: 0
     };
 
-    // Key input to prevent accidental scrolling
+    // Key input to prevent scrolling
     const keys = {};
-    document.addEventListener("keydown", (e) => {
+    document.addEventListener("keydown", e => {
         if (["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(e.key)) e.preventDefault();
         keys[e.key] = true;
     });
-    document.addEventListener("keyup", (e) => keys[e.key] = false);
+    document.addEventListener("keyup", e => keys[e.key] = false);
 
     // START GAME BUTTON
     const startBtn = document.createElement("button");
@@ -90,7 +77,6 @@ window.onload = () => {
         fontFamily: "'Audiowide', cursive"
     });
     document.body.appendChild(startBtn);
-
     startBtn.addEventListener("mouseover", () => startBtn.style.boxShadow = "0 0 25px rgba(142, 68, 173, 1)");
     startBtn.addEventListener("mouseout", () => startBtn.style.boxShadow = "0 0 15px rgba(142, 68, 173, 0.7)");
 
@@ -116,7 +102,6 @@ window.onload = () => {
         fontFamily: "'Audiowide', cursive"
     });
     document.body.appendChild(retryBtn);
-
     retryBtn.addEventListener("mouseover", () => retryBtn.style.boxShadow = "0 0 25px rgb(255, 0, 0)");
     retryBtn.addEventListener("mouseout", () => retryBtn.style.boxShadow = "0 0 15px rgb(255, 0, 0)");
     retryBtn.addEventListener("click", () => location.reload());
@@ -133,15 +118,15 @@ window.onload = () => {
                 r: 15,
                 dx: dx,
                 dy: dy,
-                angle: dx > 0 ? Math.PI/2 : -Math.PI/2 // initial facing right/left
+                angle: dx > 0 ? Math.PI / 2 : -Math.PI / 2
             });
         }
     }
 
-    // Countdown function
+    // Countdown
     function countdown(callback) {
         let counter = 3;
-        countdownEl.style.display = "block"; 
+        countdownEl.style.display = "block";
         countdownEl.style.top = canvas.offsetTop + canvas.height / 2 + "px";
         countdownEl.style.left = canvas.offsetLeft + canvas.width / 2 + "px";
 
@@ -156,6 +141,18 @@ window.onload = () => {
         }, 667);
     }
 
+    // Save score helper
+    function saveScore(playerName, score) {
+        const newScore = {
+            name: playerName || "Player",
+            score: score,
+            date: new Date()
+        };
+        const allScores = JSON.parse(localStorage.getItem("allScores")) || [];
+        allScores.push(newScore);
+        localStorage.setItem("allScores", JSON.stringify(allScores));
+    }
+
     // Start Game
     startBtn.addEventListener("click", () => {
         startBtn.style.display = "none";
@@ -163,7 +160,7 @@ window.onload = () => {
         countdown(() => {
             startTime = Date.now();
             running = true;
-            bgMusic.play();  // start background music
+            bgMusic.play();
         });
     });
 
@@ -186,9 +183,8 @@ window.onload = () => {
             b.x += b.dx;
             b.y += b.dy;
 
-            // Wall collision and flip image
-            if (b.x - b.r < 0) { b.dx *= -1; b.angle = Math.PI/2; }
-            if (b.x + b.r > canvas.width) { b.dx *= -1; b.angle = -Math.PI/2; }
+            if (b.x - b.r < 0) { b.dx *= -1; b.angle = Math.PI / 2; }
+            if (b.x + b.r > canvas.width) { b.dx *= -1; b.angle = -Math.PI / 2; }
             if (b.y - b.r < 0) { b.dy *= -1; b.angle = 0; }
             if (b.y + b.r > canvas.height) { b.dy *= -1; b.angle = Math.PI; }
 
@@ -226,9 +222,23 @@ window.onload = () => {
     // Game over
     function gameOver() {
         running = false;
-        retryBtn.style.display = "block";
         bgMusic.pause();
         bgMusic.currentTime = 0;
+
+        // Final score
+        const finalScore = ((Date.now() - startTime) / 1000).toFixed(1);
+
+        // Prompt for player name
+        const playerName = prompt("Game Over! Enter your name for the leaderboard:", "Player");
+
+        // Save score to localStorage
+        saveScore(playerName, finalScore);
+
+        // Show retry button
+        retryBtn.style.display = "block";
+
+        // Update score display
+        scoreDisplay.textContent = `Score: ${finalScore} seconds`;
     }
 
     // Game loop
