@@ -11,7 +11,7 @@
     <link href="stylesheet.css" rel="stylesheet" />
 </head>
 
-<body>
+<body class = "cave">
     <header>
         <nav id="primary-navbar">
             <ul>
@@ -29,24 +29,54 @@
         <button id="theme-toggle" class="btn btn-secondary mb-3 position-fixed top-0 end-0 m-3">Toggle Light Mode</button>
 
         <div class="hero">
-            <h1>Game 2: TBD</h1>
-            <img src="images/placeholder.png" alt="Game 1 image">
+            <h1>Cave of Mysteries</h1>
+            <img src="images/caveOfMysteries.jpeg" width = 200rem height = 200rem alt="Cave of Mysteries logo">
         </div>
 
         <div id="game-display">
             <p>
-                Welcome to Game 2!
+                Welcome to the Cave of Mysteries...
             </p>
 
-            <p>
-                <strong>How to play:</strong> Explain gameplay here.
+            <p id="scene">
+                You stumble upon a mysterious cave, filled with ancient symbols and an air of excitement. A booming voice,
+                familiar yet otherworldly, calls out your name. Frightened, you stay silent, but the voice continues: "In the depths
+                of this cave lies an incredible treasure. But in order to reach the treasure, you must prove your fortitude of mind!"
             </p>
+
+            <h2 id = "result">
+                Start answering riddles to progress!
+            </h2>
+
+            <button class = "cavebtn" onClick = startGame()> Start </button>
+
+            <h3 id = "riddle">
+                
+            </h3>
+            <p id="answer">
+                
+            </p>
+
+            <form id="input">
+                
+            </form>
+
+            <button class = "cavebtn" onclick = skip()> Skip this riddle </button>
+
+            <p>
+                <strong>How to play:</strong> Answer riddles to progress through the cave! With each riddle you
+                 answer correctly, you get closer to finding the treasure at the heart of the cave. When you get
+                  an answer wrong, you get one milestone further away! If you're stuck, don't be afraid to skip
+                  to the next one. You'll still have to take one step back, but it's better than being stuck forever,
+                  and you'll get to learn the correct answer in the process!
+                  </p>
 
             <a href="index.html">← Back to Home</a>
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script src="cave.js"></script>
+
 </body>
 
 </html>

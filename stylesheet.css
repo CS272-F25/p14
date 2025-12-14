@@ -103,3 +103,18 @@ body.game1-page button {
     z-index: 20; 
     display: none; 
 }
+
+
+.cave {
+    font-family: papyrus;
+    color: orangered;
+}
+
+#result {
+    color: goldenrod;
+}
+
+.cavebtn {
+    background: goldenrod;
+    color: darkred;
+}
