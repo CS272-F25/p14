@@ -286,8 +286,8 @@ body.leaderboard-page {
 }
 
 /* List items */
-#top-scores li,
-#recent-scores li {
+.top-scores li,
+.recent-scores li {
     background: rgba(0,0,0,0.2);
     margin-bottom: 5px;
     padding: 0.5rem 1rem;
