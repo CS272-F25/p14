@@ -425,3 +425,28 @@ body.howto-page h2 {
     background: goldenrod;
     color: darkred;
 }
+
+#username-input {
+    position: absolute;
+    left: 40%;
+    right: 40%;
+    top: 65%;
+    padding: 10ppx 12px;
+    font-size: 18px;
+    box-sizing: border-box;
+    display: none;
+    z-index: 10;
+}
+
+#blackjack-canvas {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.canvas-wrap {
+    position: relative;
+    width: 100%;
+    max-width: 1280px;
+    margin: auto;
+}
