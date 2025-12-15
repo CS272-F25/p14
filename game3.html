@@ -29,21 +29,35 @@
     <div class="content">
 
         <div class="hero">
-            <h1>Game 3: Blackjack</h1>
+            <h1 style="text-align: center; padding: 1rem;">Game 3: Blackjack</h1>
             <div class="canvas-wrap">
                 <canvas id="blackjack-canvas"></canvas>
-                <input id="username-input" type="text" placeholder="Enter username" maxlength="16" aria-label="Username entry"/>
+                <input id="username-input" type="text" placeholder="Enter username" maxlength="16"
+                    aria-label="Username entry" />
             </div>
         </div>
 
         <div id="game-display">
             <p>
-                Welcome to Game 3!
+                Welcome to Blackjack!
             </p>
 
             <p>
-                <strong>How to play:</strong> Explain gameplay here.
+                <strong>How to play:</strong>
             </p>
+            <p>The goal of blackjack is to beat the dealer.</p>
+
+            <p>You will recieve two cards face up, and the dealer will recieve two cards, with one face down. If you
+                don't think your hand will beat the dealer's, click "hit" to draw another card. If you do think your
+                hand will beat the dealer's, click "stand". Once you do, the dealer will reveal the hidden card, and
+                draw until their hand is worth at least 17. If the dealer's hand goes over 21 or your hand is worth
+                more, you win 50 chips! However, if you go over 21 first, the dealer wins. If your hand is worth exactly
+                21 and you only have 2 cards in your hand, you win 75 chips.</p>
+
+            <p>Number cards are worth the value on the card. Face cards (King, Queen, Jack) are worth 10. Aces are worth
+                either 1 or 11, whichever is more helpful.</p>
+
+            <p>Card images <a href="https://cazwolf.itch.io/pixel-fantasy-cards">created by Caz Wolf</a> and licensed under the <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International (CC by 4.0)</a> license.</p>
 
             <a href="index.html">← Back to Home</a>
         </div>
