@@ -36,7 +36,7 @@ function renderLeaderboard() {
                 const field = row.document.fields;
                 return {
                     name: field.username?.stringValue ?? "Anonymous",
-                    score: Number(field.score?.integerValue ?? 0),
+                    score: Number(field.score?.doubleValue ?? 0),
                     date: field.createdAt?.timestampValue ?? null
                 };
             });
@@ -94,7 +94,7 @@ function renderLeaderboard() {
                 const field = row.document.fields;
                 return {
                     name: field.username?.stringValue ?? "Anonymous",
-                    score: Number(field.score?.integerValue ?? 0),
+                    score: Number(field.score?.doubleValue ?? 0),
                     date: field.createdAt?.timestampValue ?? null
                 };
             });

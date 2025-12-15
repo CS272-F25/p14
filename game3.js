@@ -115,7 +115,7 @@ function submitScore() {
             JSON.stringify({
                 fields: {
                     username: { stringValue: USERNAME },
-                    score: { integerValue: String(chips) },
+                    score: { doubleValue: String(chips) },
                     gameID: { stringValue: "game3" },
                     createdAt: {timestampValue: new Date().toISOString()}
                 }

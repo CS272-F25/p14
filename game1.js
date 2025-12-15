@@ -234,6 +234,9 @@ window.onload = () => {
         // Save score to localStorage
         saveScore(playerName, finalScore);
 
+        // Upload to database
+        uploadData(playerName, finalScore)
+
         // Show retry button
         retryBtn.style.display = "block";
 
@@ -250,3 +253,25 @@ window.onload = () => {
 
     loop();
 };
+
+function uploadData(name, score) {
+    fetch("https://firestore.googleapis.com/v1/projects/lis-472-leaderboard/databases/(default)/documents/scores", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body:
+            JSON.stringify({
+                fields: {
+                    username: { stringValue: name },
+                    score: { doubleValue: String(score) },
+                    gameID: { stringValue: "game1" },
+                    createdAt: { timestampValue: new Date().toISOString() }
+                }
+            })
+    }).then(res => {
+        if (!res.ok) {
+            return res.text().then(msg => {
+                console.error(`${res.status}: ${msg}`)
+            })
+        }
+    })
+}
