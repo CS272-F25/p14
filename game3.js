@@ -116,7 +116,8 @@ function submitScore() {
                 fields: {
                     username: { stringValue: USERNAME },
                     score: { integerValue: String(chips) },
-                    gameID: { stringValue: "game3" }
+                    gameID: { stringValue: "game3" },
+                    createdAt: {timestampValue: new Date().toISOString()}
                 }
             })
     }).then(res => {
