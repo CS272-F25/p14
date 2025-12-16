@@ -47,7 +47,7 @@
                 Start answering riddles to progress!
             </h2>
 
-            <button class = "cavebtn" onClick = startGame()> Start </button>
+            <button class = "cavebtn" onclick = startGame()> Start </button>
 
             <h3 id = "riddle">
                 
@@ -56,9 +56,11 @@
                 
             </p>
 
-            <form id="input">
-                
+            <form>
+            <input type="text" id="riddle input"> </input>
+            <button type="submit">Submit your guess</button>
             </form>
+        
 
             <button class = "cavebtn" onclick = skip()> Skip this riddle </button>
 
@@ -74,7 +76,7 @@
         </div>
     </div>
 
-    <script src="cave.js"></script>
+    <script src="game2.js"></script>
 
 </body>
 

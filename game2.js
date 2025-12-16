@@ -59,12 +59,40 @@ const RIDDLE_LIST =
         question: "I follow you all the time and copy your every move, but you can't touch me or catch me. What am I?",
         scramble: "dahosw",
         answer: "shadow"
-    }
-
+    },
+    {
+        question: "What gets bigger when more is taken away?",
+        scramble: "leho",
+        answer: "hole"
+    },
+    {
+        question: "Where does today come before yesterday?",
+        scramble: "yndtciaori",
+        answer: "dictionary"
+    },
+    {
+        question: "What has words, but never speaks?",
+        scramble: "kboo",
+        answer: "book"
+    },
+    {
+        question: "What has many teeth, but can't bite?",
+        scramble: "mcbo",
+        answer: "comb"
+    },
+    {
+        question: "What building has the most stories?",
+        scramble: "birlayr",
+        answer: "library"
+    },
 ]
 
 const SCENE_TEXT = ["You stumble upon a mysterious cave, filled with ancient symbols and an air of excitement. A booming voice, familiar yet otherworldly, calls out your name. Frightened, you stay silent, but the voice continues: 'In the depths of this cave lies an incredible treasure. But in order to reach the treasure, you must prove your fortitude of mind!'",
-]; //TODO: create object
+    "You are a few steps into the cave... the darkness is looming around you and you feel trepidation, yet vast potential. You can see a glint coming from deep within the cave. You want more than anything to answer and proceed.",
+    "You are almost upon the treasure, but it is still out of your grasp. You feel unsteady, breathless, but ready for what comes next.",
+    "A glorious light blinds your eyes. The treasure is almost upon you and... TODO: finish this",
+    "TODO: completion scene"
+]; //TODO: finish object
 
 const resultText = document.getElementById("result");
 const sceneText = document.getElementById("scene");
@@ -78,18 +106,58 @@ bgMusic.volume = 0.3;
 let currStage = 0;
 
 function startGame() {
-    bgMusic.play();
+    alert("made it to start!");
+    // bgMusic.play();
+    currStage = 0;
     moveForward();
 }
 
 function moveForward() {
+    if (currStage == 4) {
+        congratulate();
+    } else {
     sceneText.innerText = SCENE_TEXT[currStage];
-    printRiddle();
+    executeRiddle();
+    }
 }
 
-function printRiddle() {
-    riddleText.innerText = RIDDLE_LIST[1].question;
-    answerText.innerText = RIDDLE_LIST[1].scramble;
+function executeRiddle() {
+    let riddleNumber = Math.floor((Math.random() * 15));
+    riddleText.innerText = RIDDLE_LIST[riddleNumber].question;
+    answerText.innerText = RIDDLE_LIST[riddleNumber].scramble;
+
+    let riddleInput = null;
+    //TODO: fix uncaught reference/not waiting
+    while(!riddleInput) {
+    riddleInput = document.getElementById("riddle input").value.toLowercase;
+    }
+
+    let isCorrect = (riddleInput == RIDDLE_LIST[riddleNumber].question);
+
+    if (isCorrect) {
+        currStage += 1;
+        moveForward();
+    } else {
+        resultText.innerText = "Incorrect! Try again, or press skip to forfeit a point and move on."
+        moveBackward();
+    }
+
+}
+
+function skip() {
+    resultText.innerText = "Skipped!";
+    moveBackward();
+}
+
+function moveBackward() {
+    alert("oh no! an obstacle!");
+    currStage -= 1;
+    sceneText
+    .innerText = SCENE_TEXT[currStage];
+}
+
+function congratulate() {
+    alert("congratulations!");
 }
 
 
