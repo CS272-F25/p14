@@ -25,19 +25,24 @@ window.onload = () => {
     let running = false;
     let balls = [];
     let startTime = 0;
+    let finalScore = 0;
+    let gameOverTriggered = false; 
+
     const scoreDisplay = document.getElementById("score");
 
     // Countdown element
     const countdownEl = document.getElementById("countdown");
-    countdownEl.style.position = "absolute";
-    countdownEl.style.zIndex = "20";
-    countdownEl.style.fontSize = "4rem";
-    countdownEl.style.fontWeight = "bold";
-    countdownEl.style.fontFamily = "'Audiowide', cursive";
-    countdownEl.style.color = "white";
-    countdownEl.style.textAlign = "center";
-    countdownEl.style.textShadow = "0 0 10px white, 0 0 20px #8e44ad, 0 0 30px #8e44ad";
-    countdownEl.style.display = "none";
+    Object.assign(countdownEl.style, {
+        position: "absolute",
+        zIndex: "20",
+        fontSize: "4rem",
+        fontWeight: "bold",
+        fontFamily: "'Audiowide', cursive",
+        color: "white",
+        textAlign: "center",
+        textShadow: "0 0 10px white, 0 0 20px #8e44ad, 0 0 30px #8e44ad",
+        display: "none"
+    });
 
     // Player
     const player = {
@@ -48,7 +53,7 @@ window.onload = () => {
         angle: 0
     };
 
-    // Key input to prevent scrolling
+    // Key input
     const keys = {};
     document.addEventListener("keydown", e => {
         if (["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(e.key)) e.preventDefault();
@@ -193,9 +198,11 @@ window.onload = () => {
             if (dist < player.r + b.r) gameOver();
         });
 
-        // Score update
-        const survival = ((Date.now() - startTime) / 1000).toFixed(1);
-        scoreDisplay.textContent = `Score: ${survival} seconds`;
+        // Score update only if running
+        if (running) {
+            const survival = ((Date.now() - startTime) / 1000).toFixed(1);
+            scoreDisplay.textContent = `Score: ${survival} seconds`;
+        }
     }
 
     // Draw everything
@@ -221,12 +228,16 @@ window.onload = () => {
 
     // Game over
     function gameOver() {
+        if (gameOverTriggered) return; // <-- Prevent multiple calls
+        gameOverTriggered = true;
+
         running = false;
         bgMusic.pause();
         bgMusic.currentTime = 0;
 
-        // Final score
-        const finalScore = ((Date.now() - startTime) / 1000).toFixed(1);
+        // Freeze score
+        finalScore = ((Date.now() - startTime) / 1000).toFixed(1);
+        scoreDisplay.textContent = `Score: ${finalScore} seconds`;
 
         // Prompt for player name
         const playerName = prompt("Game Over! Enter your name for the leaderboard:", "Player");
@@ -235,13 +246,10 @@ window.onload = () => {
         saveScore(playerName, finalScore);
 
         // Upload to database
-        uploadData(playerName, finalScore)
+        uploadData(playerName, finalScore);
 
         // Show retry button
         retryBtn.style.display = "block";
-
-        // Update score display
-        scoreDisplay.textContent = `Score: ${finalScore} seconds`;
     }
 
     // Game loop
