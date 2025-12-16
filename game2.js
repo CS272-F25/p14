@@ -98,16 +98,21 @@ const resultText = document.getElementById("result");
 const sceneText = document.getElementById("scene");
 const riddleText = document.getElementById("riddle");
 const answerText = document.getElementById("answer");
+let riddleInput = null; //assigned a value on each click of submit
 
 const bgMusic = new Audio("sounds/cave.mp3"); // credit: "Wizard Rider" by Sonican, via pixabay
 bgMusic.loop = true;
 bgMusic.volume = 0.3;
 
 let currStage = 0;
+let riddleNumber = null;
 
 function startGame() {
-    alert("made it to start!");
-    // bgMusic.play();
+    if (currStage != 0) {
+        alert("You've already started!");
+        return;
+    }
+    bgMusic.play();
     currStage = 0;
     moveForward();
 }
@@ -115,57 +120,69 @@ function startGame() {
 function moveForward() {
     if (currStage == 4) {
         congratulate();
+        alert("curr stage is 4");
     } else {
-    sceneText.innerText = SCENE_TEXT[currStage];
-    executeRiddle();
+        sceneText.innerText = SCENE_TEXT[currStage];
+        riddleNumber = Math.floor((Math.random() * 15));
+        printRiddle(riddleNumber);
     }
 }
 
-function executeRiddle() {
-    let riddleNumber = Math.floor((Math.random() * 15));
+function printRiddle(riddleNumber) {
+
     riddleText.innerText = RIDDLE_LIST[riddleNumber].question;
-    answerText.innerText = RIDDLE_LIST[riddleNumber].scramble;
-
-    let riddleInput = null;
-    //TODO: fix uncaught reference/not waiting
-    while(!riddleInput) {
-    riddleInput = document.getElementById("riddle input").value.toLowercase;
-    }
-
-    let isCorrect = (riddleInput == RIDDLE_LIST[riddleNumber].question);
-
-    if (isCorrect) {
-        currStage += 1;
-        moveForward();
-    } else {
-        resultText.innerText = "Incorrect! Try again, or press skip to forfeit a point and move on."
-        moveBackward();
-    }
-
+    answerText.innerText = "Scrambled answer: " + RIDDLE_LIST[riddleNumber].scramble;
+    
 }
 
 function skip() {
     resultText.innerText = "Skipped!";
     moveBackward();
+
+    let lastRiddle = riddleNumber;
+    let newRiddle = null;
+
+    //so you don't get the same riddle when you clicked skip
+    while (newRiddle == lastRiddle || newRiddle == null) {
+        newRiddle = Math.floor((Math.random() * 15));
+    }
+
+    printRiddle(riddleNumber);
+
 }
 
 function moveBackward() {
     alert("oh no! an obstacle!");
     currStage -= 1;
-    sceneText
-    .innerText = SCENE_TEXT[currStage];
+    sceneText.innerText = SCENE_TEXT[currStage];
 }
 
 function congratulate() {
     alert("congratulations!");
 }
 
+function checkAnswer() {
+    let riddleInput = document.getElementById("riddle-input").value;
+    alert(riddleInput);
+    submitted = true;
+   
+    let isCorrect = (riddleInput == RIDDLE_LIST[riddleNumber].answer);
+
+    if (isCorrect) {
+        currStage += 1;
+        resultText.innerText = "Correct!";
+        moveForward();
+    } else {
+        resultText.innerText = "Incorrect! Try again, or press skip to forfeit a point and move on."
+        moveBackward();
+    }
+}
 
 //**
 // pseudocode
 // print the intro text or whatever
 // print riddle function (generate a random number and print the riddle for that number)
-// while (riddle count is < 7) {
+// while (riddle count is less than 7) {
 // print riddle
 // user answer = currAnswer
 // if currAnswer = riddleAnswer {
