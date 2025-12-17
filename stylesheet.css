@@ -423,7 +423,12 @@ body.howto-page h2 {
 }
 
 .cavebtn {
-    background: goldenrod;
+    background-color: goldenrod;
+    color: darkred;
+}
+
+.sceneCard {
+    background-color: ivory;
     color: darkred;
 }
 

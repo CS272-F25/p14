@@ -90,8 +90,7 @@ const RIDDLE_LIST =
 const SCENE_TEXT = ["You stumble upon a mysterious cave, filled with ancient symbols and an air of excitement. A booming voice, familiar yet otherworldly, calls out your name. Frightened, you stay silent, but the voice continues: 'In the depths of this cave lies an incredible treasure. But in order to reach the treasure, you must prove your fortitude of mind!'",
     "You are a few steps into the cave... the darkness is looming around you and you feel trepidation, yet vast potential. You can see a glint coming from deep within the cave. You want more than anything to answer and proceed.",
     "You are almost upon the treasure, but it is still out of your grasp. You feel unsteady, breathless, but ready for what comes next.",
-    "A glorious light blinds your eyes. The treasure is almost upon you and... TODO: finish this",
-    "TODO: completion scene"
+    "A glorious light blinds your eyes. You have come to the deepest end of the cave and it is full of immeasurable riches. You hear the voice again: 'Congratulations, Traveler. You have bested the game of riddles and proven your wit! You may leave now and take your spoils...",
 ]; //TODO: finish object
 
 const resultText = document.getElementById("result");
@@ -117,7 +116,7 @@ function startGame() {
 }
 
 function moveForward() {
-    if (currStage == 4) {
+    if (currStage >= 4) {
         congratulate();
     } else {
         sceneText.innerText = SCENE_TEXT[currStage];
