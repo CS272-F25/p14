@@ -427,7 +427,13 @@ body.howto-page h2 {
     color: darkred;
 }
 
-.sceneCard {
+.startbtn {
+    background-color: goldenrod;
+    color: darkred;
+    font-size: x-large;
+}
+
+.infoCard {
     width: 50%;
     margin: auto;
     background-color: goldenrod;

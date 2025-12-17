@@ -90,8 +90,8 @@ const RIDDLE_LIST =
 const SCENE_TEXT = ["You stumble upon a mysterious cave, filled with ancient symbols and an air of excitement. A booming voice, familiar yet otherworldly, calls out your name. Frightened, you stay silent, but the voice continues: 'In the depths of this cave lies an incredible treasure. But in order to reach the treasure, you must prove your fortitude of mind!'",
     "You are a few steps into the cave... the darkness is looming around you and you feel trepidation, yet vast potential. You can see a glint coming from deep within the cave. You want more than anything to answer and proceed.",
     "You are almost upon the treasure, but it is still out of your grasp. You feel unsteady, breathless, but ready for what comes next.",
-    "A glorious light blinds your eyes. You have come to the deepest end of the cave and it is full of immeasurable riches. You hear the voice again: 'Congratulations, Traveler. You have bested the game of riddles and proven your wit! You may leave now and take your spoils...",
-]; //TODO: finish object
+    "A glorious light blinds your eyes. You have come to the deepest end of the cave and it is full of immeasurable riches. You hear the voice again: 'Congratulations, Traveler. You have nearly bested the game of riddles and proven your wit! Answer one more riddle to claim your spoils...",
+];
 
 const resultText = document.getElementById("result");
 const sceneText = document.getElementById("scene");
@@ -102,6 +102,8 @@ let riddleInput = null; //assigned a value on each click of submit
 const bgMusic = new Audio("sounds/cave.mp3"); // credit: "Wizard Rider" by Sonican, via pixabay
 bgMusic.loop = true;
 bgMusic.volume = 0.3;
+
+const fanfare = new Audio ("sounds/fanfare.mp3"); // credit FunSounds on pixabay
 
 let currStage = 0;
 let riddleNumber = null;
@@ -160,12 +162,13 @@ function moveBackward() {
 
 function congratulate() {
     riddleText.innerText = "Congratulations! You win!";
-    answerText.innerText = "Your score: ${score}";
+    answerText.innerText = "Your score: " + score;
+    bgMusic.pause();
+    fanfare.play();
     }
 
 function checkAnswer() {
     let riddleInput = document.getElementById("riddle-input").value;
-    alert(riddleInput);
    
     let isCorrect = (riddleInput == RIDDLE_LIST[riddleNumber].answer);
 
@@ -178,26 +181,3 @@ function checkAnswer() {
         moveBackward();
     }
 }
-
-//**
-// pseudocode
-// print the intro text or whatever
-// print riddle function (generate a random number and print the riddle for that number)
-// while (riddle count is less than 7) {
-// print riddle
-// user answer = currAnswer
-// if currAnswer = riddleAnswer {
-// riddlecount ++
-// print "Wonderful!"
-// play cool sound
-// moveForward(riddlecount)
-// } else {
-// print "Not quite!"
-// play sad sound
-// riddle count --
-// moveBackward()
-// move forward looks like this:
-// there are seven different progressions of like almost being there making it further in
-// move backward looks like this:
-// random number genreates for a terrible thing to happen to you
-// so print whatever the last thing was */
