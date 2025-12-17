@@ -113,22 +113,20 @@ function startGame() {
         return;
     }
     bgMusic.play();
-    currStage = 0;
     moveForward();
 }
 
 function moveForward() {
     if (currStage == 4) {
         congratulate();
-        alert("curr stage is 4");
     } else {
         sceneText.innerText = SCENE_TEXT[currStage];
         riddleNumber = Math.floor((Math.random() * 15));
-        printRiddle(riddleNumber);
+        printRiddle();
     }
 }
 
-function printRiddle(riddleNumber) {
+function printRiddle() {
 
     riddleText.innerText = RIDDLE_LIST[riddleNumber].question;
     answerText.innerText = "Scrambled answer: " + RIDDLE_LIST[riddleNumber].scramble;
@@ -152,7 +150,7 @@ function skip() {
 }
 
 function moveBackward() {
-    alert("oh no! an obstacle!");
+    alert("An invisible force pulls you backwards, the treasure now further out of your grasp.");
     currStage -= 1;
     sceneText.innerText = SCENE_TEXT[currStage];
 }
