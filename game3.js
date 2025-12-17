@@ -11,6 +11,8 @@ const MIN_BET = 50;
 const STARTING_CHIPS = 200;
 const SUITS = ["spades", "clubs", "diamonds", "hearts"];
 const VALUES = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
+const FADE_TIME = 150;
+const STORAGE_KEY = "game3_chips";
 
 // visual
 const CARD_WIDTH = 96;
@@ -36,7 +38,6 @@ let gamestate = "player"
 let animating = false;
 let quitMenu = false;
 let submitting = false;
-const FADE_TIME = 150;
 
 /**
  * Load images from file into memory.
@@ -74,6 +75,13 @@ function loadImages(onDone) {
 }
 
 /**
+ * Save chips to session storage
+ */
+function saveChips() {
+    sessionStorage.setItem(STORAGE_KEY, String(chips));
+}
+
+/**
  * Open the quit menu
  */
 function quitToMenu() {
@@ -86,6 +94,8 @@ function quitToMenu() {
     hideDealer = false;
 
     usernameInput.focus();
+
+    saveChips();
 
     draw();
 }
@@ -144,6 +154,7 @@ function newGame() {
 
     roundsPlayed = 0;
     chips = STARTING_CHIPS;
+    saveChips();
 
     quitMenu = false;
     deck = shuffle(generateDeck());
@@ -408,6 +419,8 @@ function endRound() {
         chips -= MIN_BET;
     }
 
+    saveChips();
+
     roundsPlayed++;
     draw();
 }
@@ -573,9 +586,20 @@ canvas.addEventListener("click", e => {
     }
 })
 
+/**
+ * Load chips from session storage
+ */
+function loadChips() {
+    const savedChips = sessionStorage.getItem(STORAGE_KEY);
+    if (savedChips !== null && !Number.isNaN(Number(savedChips))) {
+        chips = Number(savedChips);
+    }
+}
+
 // Load images, create a deck, start round and draw canvas
 loadImages(() => {
     deck = shuffle(generateDeck());
+    loadChips();
     startRound();
     draw();
 })
