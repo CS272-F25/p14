@@ -534,10 +534,25 @@ function inRect(x, y, r) {
     return x >= r.x && x <= r.x + r.w && y >= r.y && y <= r.y + r.h
 }
 
+/**
+ * Get position on the canvas scaled to aspect ratio from a pointer event
+ * @param {PointerEvent} e Pointer event containing unscaled position information
+ * @returns {{x: number, y: number}} X and Y position scaled to aspect ratio
+ */
+function getCanvasPosition(e) {
+    const rect = canvas.getBoundingClientRect();
+    const xScale = canvas.width / rect.width;
+    const yScale = canvas.height / rect.height;
+
+    return {
+        x: (e.clientX - rect.left) * xScale,
+        y: (e.clientY - rect.top) * yScale
+    }
+}
+
 // Listen for clicks and check if they're inside a button
 canvas.addEventListener("click", e => {
-    const x = e.offsetX;
-    const y = e.offsetY;
+    const {x, y} = getCanvasPosition(e); 
 
     if (quitMenu) { // Quit menu only
         if (inRect(x, y, SUBMIT_BUTTON_POS)) {
@@ -556,8 +571,6 @@ canvas.addEventListener("click", e => {
             quitToMenu();
         }
     }
-
-
 })
 
 // Load images, create a deck, start round and draw canvas
