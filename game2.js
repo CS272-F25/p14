@@ -53,7 +53,7 @@ const RIDDLE_LIST =
     {
         question: "What has 88 keys, but can't open a single lock?",
         scramble: "npoia",
-        answer: "piano:"
+        answer: "piano"
     },
     {
         question: "I follow you all the time and copy your every move, but you can't touch me or catch me. What am I?",
@@ -142,14 +142,13 @@ function skip() {
     moveBackward();
 
     let lastRiddle = riddleNumber;
-    let newRiddle = null;
 
     //so you don't get the same riddle when you clicked skip
-    while (newRiddle == lastRiddle || newRiddle == null) {
-        newRiddle = Math.floor((Math.random() * 15));
+    while (riddleNumber == lastRiddle) {
+        riddleNumber = Math.floor((Math.random() * 15));
     }
 
-    printRiddle(riddleNumber);
+    printRiddle();
 
 }
 
