@@ -262,6 +262,11 @@ window.onload = () => {
     loop();
 };
 
+/**
+ * Upload score to the database
+ * @param {String} name Username to submit
+ * @param {Number} score Score to submit
+ */
 function uploadData(name, score) {
     fetch("https://firestore.googleapis.com/v1/projects/lis-472-leaderboard/databases/(default)/documents/scores", {
         method: "POST",

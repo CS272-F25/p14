@@ -160,7 +160,9 @@ function moveBackward() {
 
 function congratulate() {
     riddleText.innerText = "Congratulations! You win!";
-    answerText.innerText = "Your score: ${score}";
+    answerText.innerText = `Your score: ${score}`;
+
+    uploadData("anonymous", score);
     }
 
 function checkAnswer() {
@@ -177,6 +179,33 @@ function checkAnswer() {
         resultText.innerText = "Incorrect! Try again, or press skip to forfeit a point and move on."
         moveBackward();
     }
+}
+
+/**
+ * Upload score to the database
+ * @param {String} name Username to submit
+ * @param {Number} score Score to submit
+ */
+function uploadData(name, score) {
+    fetch("https://firestore.googleapis.com/v1/projects/lis-472-leaderboard/databases/(default)/documents/scores", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body:
+            JSON.stringify({
+                fields: {
+                    username: { stringValue: name },
+                    score: { doubleValue: String(score) },
+                    gameID: { stringValue: "game2" },
+                    createdAt: { timestampValue: new Date().toISOString() }
+                }
+            })
+    }).then(res => {
+        if (!res.ok) {
+            return res.text().then(msg => {
+                console.error(`${res.status}: ${msg}`)
+            })
+        }
+    })
 }
 
 //**
