@@ -451,3 +451,27 @@ body.howto-page h2 {
     max-width: 1280px;
     margin: auto;
 }
+
+.games-card {
+    max-height: 20rem;
+    text-align: center;
+}
+
+.games-card h2 {
+    color: #ff3b3b;
+    margin-bottom: 0.5rem;
+}
+
+.games-img {
+    width: 100%;
+    max-width: 100px;
+    margin-bottom: auto;
+}
+
+.games-col {
+    display: flex;
+}
+
+.games-button {
+    margin: auto;
+}
