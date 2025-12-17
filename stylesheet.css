@@ -428,7 +428,9 @@ body.howto-page h2 {
 }
 
 .sceneCard {
-    background-color: ivory;
+    width: 50%;
+    margin: auto;
+    background-color: goldenrod;
     color: darkred;
 }
 

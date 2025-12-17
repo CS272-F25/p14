@@ -106,6 +106,8 @@ bgMusic.volume = 0.3;
 let currStage = 0;
 let riddleNumber = null;
 
+let score = 0;
+
 function startGame() {
     if (currStage != 0) {
         alert("You've already started!");
@@ -116,6 +118,7 @@ function startGame() {
 }
 
 function moveForward() {
+    score += 2;
     if (currStage >= 4) {
         congratulate();
     } else {
@@ -151,17 +154,18 @@ function skip() {
 function moveBackward() {
     alert("An invisible force pulls you backwards, the treasure now further out of your grasp.");
     currStage -= 1;
+    score -= 3;
     sceneText.innerText = SCENE_TEXT[currStage];
 }
 
 function congratulate() {
-    alert("congratulations!");
-}
+    riddleText.innerText = "Congratulations! You win!";
+    answerText.innerText = "Your score: ${score}";
+    }
 
 function checkAnswer() {
     let riddleInput = document.getElementById("riddle-input").value;
     alert(riddleInput);
-    submitted = true;
    
     let isCorrect = (riddleInput == RIDDLE_LIST[riddleNumber].answer);
 
