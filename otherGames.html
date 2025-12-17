@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- NOTE FOR REVIEW: this page only functions as a container to hold iframes for dummy games to flesh out the games page -->
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>BadgersPlay</title>
+   <link rel="icon" type="image/x-icon" href="images/badger.png">
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+   <link href="https://fonts.googleapis.com/css2?family=BBH+Bogle&display=swap" rel="stylesheet">
+   <link href="stylesheet.css" rel="stylesheet">
+</head>
+
+
+<body>
+
+   <header>
+       <nav id="primary-navbar">
+           <ul>
+               <li><a href="index.html"><img src="images/badger.png" height="30" alt=""></a></li>
+               <li><a href="index.html">Home</a></li>
+               <li><a href="games.html">Games</a></li>
+               <li><a href="leaderboard.html">Leaderboard</a></li>
+               <li><a href="howToPlay.html">How to Play</a></li>
+               <li><a href="aboutUs.html">About Us</a></li>
+            </ul>
+       </nav>
+   </header>
+
+    <div class="content">
+        <div class="hero">
+            <h1 id="other-game-title" style="text-align: center; padding: 1rem;">Game Title</h1>
+            <p style="text-align: center; font-size: small;">Game source: <a id="other-game-link" href=""></a></p>
+            <div class="canvas-wrap other-game-wrapper">
+                <div id="game-container"></div>
+            </div>
+        </div>
+    </div>
+
+   <script>
+    const game = new URLSearchParams(window.location.search).get("game"); // Get the search parameter which identifies the correct game
+
+    const games = { // available games
+        game4: {game:"https://www.onlinegames.io/games/2023/code/four-colors/index.html", name: "Four Colors", source: "https://www.onlinegames.io/four-colors/"},
+        game5: {game:"https://www.onlinegames.io/games/2024/w1/five-nights-at-freddys/index.html", name: "Five Nights at Freddy's", source: "https://www.onlinegames.io/five-nights-at-freddys/"},
+        game6: {game:"https://cloud.onlinegames.io/games/2025/more/run-3/index-og.html", name: "Run 3", source: "https://www.onlinegames.io/run-3/"}
+    }
+
+    if (games[game]) {
+        // get and embed iframe for the target game
+        const iframe = document.createElement("iframe")
+        iframe.src = games[game]["game"];
+        iframe.className = "other-game"
+        document.getElementById("game-container").appendChild(iframe)
+
+        // Add title
+        document.getElementById("other-game-title").innerText = games[game]["name"]
+
+        // add link to game source
+        const link = document.getElementById("other-game-link")
+        link.href = games[game]["source"]
+        link.innerText = games[game]["source"]
+    }
+
+   </script>
+
+</body>
