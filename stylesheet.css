@@ -1,41 +1,4 @@
 /* ==============================
-   PRIMARY NAVBAR
-   ============================== */
-   #primary-navbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1rem 2rem;
-    box-shadow: 0 4px 20px rgba(255, 59, 59, 0.3);
-    position: relative;
-    background-image: url(images/HeaderBackground.jpg);
-    background-size: cover;
-    background-position: center;
-}
-
-#primary-navbar ul {
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-}
-
-#primary-navbar li a {
-    color: #ffffff;
-    font-weight: bold;
-    text-decoration: none;
-    font-size: 1.1rem;
-    font-family: 'BBH Bogle', sans-serif;
-}
-
-#primary-navbar li a:hover {
-    color: #ffaaaa;
-    text-shadow: 0 0 10px #ffaaaa;
-}
-
-/* ==============================
    HOMEPAGE HERO
    ============================== */
 body.homepage {
@@ -499,4 +462,41 @@ body.howto-page h2 {
     left: 0;
     right: 0;
     max-height: 720px;
+}
+
+/* ==============================
+   PRIMARY NAVBAR
+   ============================== */
+   #primary-navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 2rem;
+    box-shadow: 0 4px 20px rgba(255, 59, 59, 0.3);
+    position: relative;
+    background-image: url(images/HeaderBackground.jpg);
+    background-size: cover;
+    background-position: center;
+}
+
+#primary-navbar ul {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+#primary-navbar li a {
+    color: #ffffff;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-family: 'BBH Bogle', sans-serif;
+}
+
+#primary-navbar li a:hover {
+    color: #ffaaaa;
+    text-shadow: 0 0 10px #ffaaaa;
 }
